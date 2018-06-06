@@ -1,0 +1,21 @@
+[
+	{
+        "_id": "co-25",
+        "_parentId": "course",
+        "_type": "page",
+        "_classes": "",
+        "title": "I'm not smurf",
+        "displayTitle": "Content object",
+        "pageBody": "I'm not smurf",
+        "body": "Or am I?",
+        "graphic": {
+            "src": "course/en/images/menu_thumb.jpg",
+            "alt": "Placeholder graphic."
+        },
+        "linkText":"View",
+        "duration": "2 mins",
+        "_pageLevelProgress": {
+            "_isEnabled": true
+        }
+	}
+]

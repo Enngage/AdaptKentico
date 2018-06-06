@@ -1,0 +1,12 @@
+[
+	{
+        "_id": "c-200",
+        "_parentId": "b-150",
+        "_type": "component",
+        "_component": "text",
+        "_classes": "",
+        "_layout": "left",
+        "title":"Title of our very first component",
+        "body": "This is component - smurfie right?"
+    }
+]
