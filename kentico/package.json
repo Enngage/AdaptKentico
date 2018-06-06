@@ -1,0 +1,36 @@
+{
+  "name": "kentico-cloud-adapt-generator",
+  "version": "0.0.0",
+  "bin": {
+    "kc-generate": "./_commonjs/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Enngage/AdaptKentico"
+  },
+  "author": "richard sustek",
+  "main": "./_commonjs/app.js",
+  "directories": {},
+  "scripts": {
+    "prepublishOnly": "npm run build:all",
+    "publish:beta": "npm publish --tag=next",
+    "build:commonjs": "tsc -m commonjs --outDir _commonjs",
+    "build:all": "npm run build:commonjs",
+    "test:all": "npm run build:all",
+    "test:travis": "npm run build:all",
+    "build:test": "npm run build:all && node _commonjs/app --projectId=63117da1-007f-01dd-86eb-23e8353ac375"
+  },
+  "private": true,
+  "preferGlobal": true,
+  "dependencies": {
+    "kentico-cloud-delivery": "4.0.2",
+    "rxjs": "6.1.0",
+    "yargs": "11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.1.2",
+    "tslint": "^5.10.0",
+    "typescript": "^2.8.3",
+    "ts-node": "^6.0.3"
+  }
+}

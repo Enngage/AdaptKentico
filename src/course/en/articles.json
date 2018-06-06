@@ -2,7 +2,7 @@
 	
 	{
         "_id":"a-50",
-        "_parentId":"co-25",
+        "_parentId":"test_page",
         "_type":"article",
         "_classes":"",
         "title":"Article - Towelie's story",
