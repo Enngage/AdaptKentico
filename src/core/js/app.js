@@ -1,5 +1,4 @@
 require([
-    'core/js/kenticoLoader',
     'core/js/adapt',
     'core/js/adaptCollection',
     'core/js/startController',
@@ -24,7 +23,7 @@ require([
     'core/js/models/lockingModel',
     'core/js/helpers',
     'plugins'
-], function (KenticoLoader, Adapt, AdaptCollection, StartController, BuildModel, ArticleModel, BlockModel, ConfigModel, ContentObjectModel, ComponentModel, CourseModel, QuestionModel, NavigationView) {
+], function (Adapt, AdaptCollection, StartController, BuildModel, ArticleModel, BlockModel, ConfigModel, ContentObjectModel, ComponentModel, CourseModel, QuestionModel, NavigationView) {
 
     // Append loading template and show
     window.Handlebars = _.extend(require("handlebars"), window.Handlebars);
@@ -152,7 +151,6 @@ require([
 
         Adapt.course = new CourseModel(null, {url:courseFolder + "course."+jsonext, reset:true});
 
-        /* Kentico - disable default collections
         Adapt.contentObjects = new AdaptCollection(null, {
             model: ContentObjectModel,
             url: courseFolder +"contentObjects."+jsonext
@@ -167,24 +165,6 @@ require([
             model: BlockModel,
             url: courseFolder + "blocks."+jsonext
         });
-        */
-
-        /* Kentico - use custom collection from KC */
-        Adapt.contentObjects = new KenticoLoader(null, {
-            model: ContentObjectModel,
-            url: courseFolder +"contentObjects."+jsonext
-        });
-
-        Adapt.articles = new KenticoLoader(null, {
-            model: ArticleModel,
-            url: courseFolder + "articles."+jsonext
-        });
-
-        Adapt.blocks = new KenticoLoader(null, {
-            model: BlockModel,
-            url: courseFolder + "blocks."+jsonext
-        });
-
 
         Adapt.components = new AdaptCollection(null, {
             model: function(json) {

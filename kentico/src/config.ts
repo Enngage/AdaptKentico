@@ -1,8 +1,14 @@
 
 export interface IGeneratorConfig {
-    pageFileName: string;
+    pagesFilename: string;
+    articlesFilename: string;
+    blocksFilename: string;
+    componentsFilename: string;
 }
 
 export const generatorConfig: IGeneratorConfig = {
-    pageFileName: 'contentObjects.json'
+    pagesFilename: 'contentObjects.json',
+    articlesFilename: 'articles.json',
+    blocksFilename: 'blocks.json',
+    componentsFilename: 'components.json'
 };

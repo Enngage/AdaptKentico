@@ -110,9 +110,9 @@
     },
     "_id": "course",
     "_type": "course",
-    "title": "Kentico Cloud Adapt",
-    "displayTitle": "Adapt Version 3.0 demonstration",
-    "description": "Sample Kentico adapt integration",
+    "title": "KC training integration test",
+    "displayTitle": "Testing the integration",
+    "description": "A test of the adapt framework to delivery training",
     "body": "Hello {{_globals._learnerInfo.firstname}} - welcome to the demonstration build for version 3.0 of the Adapt framework.<br><br>This version of the framework drops support for legacy browsers (IE8/9/10), giving us a solid platform on which to start building for the future. Find out more <a href='https://www.adaptlearning.org/index.php/adapt-framework/' target='_blank'>here</a>.",
     "_buttons": {
         "_submit": {
@@ -139,7 +139,7 @@
         "remainingAttemptText": "final attempt",
         "disabledAriaLabel": "This button is disabled at the moment."
     },
-    "_latestTrackingId": 20,
+    "_latestTrackingId": 21,
     "_pageLevelProgress": {
         "_isEnabled": true,
         "_showPageCompletion": false,
