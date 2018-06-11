@@ -44,6 +44,7 @@ export interface IAdaptComponent {
     _id: string;
     _type: string;
     _parentId: string;
+    _component: string;
     title: string;
     body: string;
 }
