@@ -1,4 +1,6 @@
+
 require([
+    'course/kenticoConfig',
     'core/js/adapt',
     'core/js/adaptCollection',
     'core/js/startController',
@@ -22,8 +24,8 @@ require([
     'core/js/router',
     'core/js/models/lockingModel',
     'core/js/helpers',
-    'plugins'
-], function (Adapt, AdaptCollection, StartController, BuildModel, ArticleModel, BlockModel, ConfigModel, ContentObjectModel, ComponentModel, CourseModel, QuestionModel, NavigationView) {
+    'plugins',
+], function (KenticoConfig, Adapt, AdaptCollection, StartController, BuildModel, ArticleModel, BlockModel, ConfigModel, ContentObjectModel, ComponentModel, CourseModel, QuestionModel, NavigationView) {
 
     // Append loading template and show
     window.Handlebars = _.extend(require("handlebars"), window.Handlebars);
@@ -31,11 +33,11 @@ require([
     var template = Handlebars.templates['loading'];
     $('#wrapper').append(template());
 
-    Adapt.build = new BuildModel(null, {url: "adapt/js/build.min.js", reset:true});
+    Adapt.build = new BuildModel(null, { url: "adapt/js/build.min.js", reset: true });
 
     // This function is called anytime a course object is loaded
     // Once all course files are loaded trigger events and call Adapt.initialize
-    Adapt.checkDataIsLoaded = function(newLanguage) {
+    Adapt.checkDataIsLoaded = function (newLanguage) {
         if (Adapt.contentObjects.models.length > 0 &&
             Adapt.articles.models.length > 0 &&
             Adapt.blocks.models.length > 0 &&
@@ -50,13 +52,13 @@ require([
 
             try {
                 Adapt.trigger('app:dataLoaded');// Triggered to setup model connections in AdaptModel.js
-            } catch(e) {
+            } catch (e) {
                 Adapt.log.error('Error during app:dataLoading trigger', e);
             }
 
             Adapt.setupMapping();
 
-            Adapt.wait.queue(function() {
+            Adapt.wait.queue(function () {
                 triggerDataReady(newLanguage);
             });
 
@@ -68,7 +70,7 @@ require([
 
             Adapt.trigger('app:languageChanged', newLanguage);
 
-            _.defer(function() {
+            _.defer(function () {
                 var startController = new StartController();
                 var hash = '#/';
 
@@ -84,7 +86,7 @@ require([
 
         try {
             Adapt.trigger('app:dataReady');
-        } catch(e) {
+        } catch (e) {
             Adapt.log.error('Error during app:dataReady trigger', e);
         }
 
@@ -127,7 +129,7 @@ require([
 
     }
 
-    function mapAdaptIdsToObjects () {
+    function mapAdaptIdsToObjects() {
         Adapt.contentObjects._byAdaptID = Adapt.contentObjects.groupBy("_id");
         Adapt.articles._byAdaptID = Adapt.articles.groupBy("_id");
         Adapt.blocks._byAdaptID = Adapt.blocks.groupBy("_id");
@@ -137,42 +139,42 @@ require([
     // This function is called when the config model triggers 'configModel:loadCourseData'
     // Once the config model is loaded get the course files
     // This enables plugins to tap in before the course files are loaded & also to change the default language
-    Adapt.loadCourseData = function(newLanguage) {
-        Adapt.on('adaptCollection:dataLoaded courseModel:dataLoaded', function() {
+    Adapt.loadCourseData = function (newLanguage) {
+        Adapt.on('adaptCollection:dataLoaded courseModel:dataLoaded', function () {
             Adapt.checkDataIsLoaded(newLanguage);
         });
 
         // All code that needs to run before adapt starts should go here
         var language = Adapt.config.get('_activeLanguage');
         var jsonext = Adapt.build.get("jsonext");
-        var courseFolder = "course/" + language +"/";
+        var courseFolder = "course/" + language + "/";
 
         $('html').attr("lang", language);
 
-        Adapt.course = new CourseModel(null, {url:courseFolder + "course."+jsonext, reset:true});
+        Adapt.course = new CourseModel(null, { url: courseFolder + "course." + jsonext, reset: true });
 
         Adapt.contentObjects = new AdaptCollection(null, {
             model: ContentObjectModel,
-            url: courseFolder +"contentObjects."+jsonext
+            url: KenticoConfig.sources.contentObjectsUrl
         });
 
         Adapt.articles = new AdaptCollection(null, {
             model: ArticleModel,
-            url: courseFolder + "articles."+jsonext
+            url: KenticoConfig.sources.articlesUrl
         });
 
         Adapt.blocks = new AdaptCollection(null, {
             model: BlockModel,
-            url: courseFolder + "blocks."+jsonext
+            url: KenticoConfig.sources.blocksUrl
         });
 
         Adapt.components = new AdaptCollection(null, {
-            model: function(json) {
+            model: function (json) {
 
                 //use view+model object
                 var ViewModelObject = Adapt.componentStore[json._component];
 
-                if(!ViewModelObject) {
+                if (!ViewModelObject) {
                     throw new Error(json._component + ' component not found. Is it installed and included?');
                 }
 
@@ -190,7 +192,7 @@ require([
                 //otherwise use component model
                 return new ComponentModel(json);
             },
-            url: courseFolder + "components."+jsonext
+            url: KenticoConfig.sources.componentsUrl
         });
     };
 
@@ -221,7 +223,7 @@ require([
 
     function onBuildDataLoaded() {
 
-        Adapt.config = new ConfigModel(null, {url: "course/config."+Adapt.build.get("jsonext"), reset:true});
+        Adapt.config = new ConfigModel(null, { url: "course/config." + Adapt.build.get("jsonext"), reset: true });
         Adapt.config.on({
             'change:_activeLanguage': onLanguageChange,
             'change:_defaultDirection': onDirectionChange

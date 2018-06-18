@@ -13,7 +13,7 @@ require.config({
         libraries: 'empty:',
         bowser: 'empty:',
         'core/js/libraries/bowser': 'empty:',
-        'coreJS/libraries/bowser': 'empty:'
+        'coreJS/libraries/bowser': 'empty:',
     },
     map: {
         '*': {
@@ -23,5 +23,5 @@ require.config({
             coreCollections: 'core/js/collections',
             coreHelpers: 'core/js/helpers'
         }
-    }
+    },
 });
