@@ -1,1 +1,1 @@
-To do
+This is a node.js model generator that will probably not be used at all and will be deleted when confirmed
