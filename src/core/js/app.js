@@ -153,19 +153,22 @@ require([
 
         Adapt.course = new CourseModel(null, { url: courseFolder + "course." + jsonext, reset: true });
 
+        // We want to reload items each time they are accessed to prevent caching of json files
+        var timestampQuery = '?t= ' + +new Date();
+
         Adapt.contentObjects = new AdaptCollection(null, {
             model: ContentObjectModel,
-            url: KenticoConfig.sources.contentObjectsUrl
+            url: KenticoConfig.sources.contentObjectsUrl + timestampQuery
         });
 
         Adapt.articles = new AdaptCollection(null, {
             model: ArticleModel,
-            url: KenticoConfig.sources.articlesUrl
+            url: KenticoConfig.sources.articlesUrl + timestampQuery
         });
 
         Adapt.blocks = new AdaptCollection(null, {
             model: BlockModel,
-            url: KenticoConfig.sources.blocksUrl
+            url: KenticoConfig.sources.blocksUrl + timestampQuery
         });
 
         Adapt.components = new AdaptCollection(null, {
@@ -192,7 +195,7 @@ require([
                 //otherwise use component model
                 return new ComponentModel(json);
             },
-            url: KenticoConfig.sources.componentsUrl
+            url: KenticoConfig.sources.componentsUrl + timestampQuery
         });
     };
 
